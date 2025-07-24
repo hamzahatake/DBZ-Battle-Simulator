@@ -2,7 +2,7 @@ import GokuUI_FullBody from "/images/GokuUI_FullBody.png"
 import Attack from "/images/Attack.png"
 import Defence from "/images/Defence.png"
 
-export default function FullBodyCharacterCard() {
+export default function FullBodyCharacterCard({ warrior }) {
     return (
         <div className="p-3">
             <div className="relative w-72 rounded-3xl shadow-2xl
@@ -11,8 +11,8 @@ export default function FullBodyCharacterCard() {
 
                 {/* Image */}
                 <img
-                    src={GokuUI_FullBody}
-                    alt="Goku Full Body"
+                    src={warrior.image}
+                    alt={warrior.name}
                     className="w-full h-3/5 object-cover object-top transition-transform duration-500 group-hover:scale-110"
                 />
 
@@ -22,7 +22,7 @@ export default function FullBodyCharacterCard() {
                     <div className="flex flex-col gap-1">
                         <p className="text-yellow-300 text-xs font-semibold uppercase tracking-wide">Level 86</p>
                         <h2 className="text-2xl font-bold leading-snug text-white">
-                            Goku <span className="text-sm font-light text-yellow-100 ml-1">Saiyan</span>
+                            {warrior.name} <span className="text-sm font-light text-yellow-100 ml-1">{warrior.race}</span>
                         </h2>
                         <p className="text-sm text-gray-300 tracking-wide italic">Ultra Instinct</p>
                     </div>
@@ -31,11 +31,11 @@ export default function FullBodyCharacterCard() {
                     <div className="flex flex-col gap-1 items-center text-sm text-blue-100">
                         <div className="flex flex-col items-center">
                             <img src={Attack} alt="Attack" className="w-8 h-8 mb-1" />
-                            <p>10,000</p>
+                            <p>{warrior.attack}</p>
                         </div>
                         <div className="flex flex-col items-center">
-                            <img src={Defence} alt="Defence" className="w-8 h-8 mb-1" />
-                            <p>9,000</p>
+                            <img src={Defence} alt="Defense" className="w-8 h-8 mb-1" />
+                            <p>{warrior.defense}</p>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ class Character(models.Model):
     attack = models.IntegerField()
     defense = models.IntegerField()
     speed = models.IntegerField()
-    image_url = models.ImageField()
+    image_url = models.ImageField(upload_to='characters/')
 
     def __str__(self):
         return f"{self.name} - {self.saga} ({self.role}) "

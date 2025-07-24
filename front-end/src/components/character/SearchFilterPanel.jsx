@@ -1,4 +1,5 @@
-export default function SearchFilterPanel() {
+export default function SearchFilterPanel({ searchQuery, setSearchQuery }) {
+
     return (
         <div className="flex justify-center w-full p-4 md:px-8">
             <div className="w-full max-w-7xl bg-gray-800 bg-opacity-70 p-6 rounded-2xl shadow-lg flex flex-wrap gap-6 justify-between items-end">
@@ -47,13 +48,17 @@ export default function SearchFilterPanel() {
 
                 {/* Search Bar */}
                 <div className="flex flex-col flex-1 min-w-[200px]">
-                    <label htmlFor="search" className="text-sm font-semibold text-yellow-400 mb-1">Search</label>
-                    <input
-                        type="text"
-                        id="search"
-                        placeholder="Search characters..."
-                        className="bg-gray-900 text-white p-2 rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400 placeholder:text-gray-400"
-                    />
+                    <form onSubmit={(e) => warriors()}>
+                        <label htmlFor="search" className="text-sm font-semibold text-yellow-400 mb-1">Search</label>
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search characters..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="bg-gray-900 text-white p-2 rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400 placeholder:text-gray-400"
+                        />
+                    </form>
                 </div>
             </div>
         </div>
