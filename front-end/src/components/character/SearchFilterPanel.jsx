@@ -26,8 +26,9 @@ export default function SearchFilterPanel({ searchQuery, setSearchQuery }) {
                         className="bg-gray-900 text-white p-2 rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400"
                     >
                         <option value="">All</option>
-                        <option value="Fighter">Fighter</option>
+                        <option value="Hero">Hero</option>
                         <option value="Villain">Villain</option>
+                        <option value="Anti-Hero">Anti-Hero</option>
                         <option value="Support">Support</option>
                     </select>
                 </div>
@@ -40,15 +41,15 @@ export default function SearchFilterPanel({ searchQuery, setSearchQuery }) {
                         className="bg-gray-900 text-white p-2 rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400"
                     >
                         <option value="">Any</option>
-                        <option value="under-1000">Under 1,000</option>
-                        <option value="1000-10000">1,000 - 10,000</option>
-                        <option value="10000-plus">10,000+</option>
+                        <option value="under-1000">1 - 25</option>
+                        <option value="1000-10000">26 - 50</option>
+                        <option value="10000-plus">50+</option>
                     </select>
                 </div>
 
                 {/* Search Bar */}
                 <div className="flex flex-col flex-1 min-w-[200px]">
-                    <form onSubmit={(e) => warriors()}>
+                    <form onSubmit={() => warriors()}>
                         <label htmlFor="search" className="text-sm font-semibold text-yellow-400 mb-1">Search</label>
                         <input
                             type="text"

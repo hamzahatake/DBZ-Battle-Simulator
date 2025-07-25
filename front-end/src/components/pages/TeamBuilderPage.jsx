@@ -1,4 +1,3 @@
-import GokuUI_FullBody from "/images/GokuUI_FullBody.png";
 import Add from "/images/Plus.png";
 
 export default function TeamBuilderPage() {
@@ -26,7 +25,7 @@ export default function TeamBuilderPage() {
                         {member ? (
                             <>
                                 <img
-                                    src={member.image}
+                                    src={member?.image}
                                     alt={member.name}
                                     className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                                 />

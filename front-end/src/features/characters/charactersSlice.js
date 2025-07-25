@@ -19,13 +19,22 @@ export const charactersApi = createApi({
                 response.map((chr) => ({
                     id: chr?.id ?? 0,
                     name: chr?.name ?? "",
+                    form: chr?.form ?? "",
+                    description: chr?.description ?? "",
                     saga: chr?.saga ?? "",
                     role: chr?.role ?? "",
-                    powerlevel: chr?.powerlevel ?? 0,
-                    attack: chr?.attack ?? 0,
-                    defense: chr?.defense ?? 0,
-                    speed: chr?.speed ?? 0,
-                    image: chr?.image_url ?? ""
+                    type: chr?.type ?? "",
+                    level: chr?.level ?? "",
+                    attack_level: chr?.attack_level ?? 0,
+                    defense_level: chr?.defense_level ?? 0,
+                    speed_level: chr?.speed_level ?? 0,
+                    energy_level: chr?.energy_level ?? 0,
+                    special_move: chr?.special_move ?? "",
+                    ultimate_move: chr?.ultimate_move ?? "",
+                    strengths: chr?.strengths ?? "",
+                    weaknesses: chr?.weaknesses ?? "",
+                    image_full_body: chr?.image_full_body ?? "",
+                    image_profile: chr?.image_profile ?? ""
                 }))
         })
     })
