@@ -9,7 +9,7 @@ export default function AboutThisProject() {
             {/* Introduction Box */}
             <div className="max-w-4xl bg-gray-800 p-6 rounded-2xl shadow-2xl">
                 <p className="text-lg text-slate-300 leading-relaxed mb-6">
-                    Welcome to the <span className="text-yellow-300 font-semibold">Anime Character Battle Simulator</span>, a fan-made web app built by an anime enthusiast and front-end developer.
+                    Welcome to the <span className="text-yellow-300 font-semibold">Anime Character Battle Simulator</span>, a fan-made web app built by an otaku and full-stack developer.
                     This project lets you build teams of your favorite DBZ characters, simulate turn-based battles, and enjoy an animated interface inspired by classic anime games.
                 </p>
 
@@ -18,7 +18,6 @@ export default function AboutThisProject() {
                     <h2 className="text-2xl font-semibold text-yellow-400 mb-2">Built With ❤️ by a Developer Who Loves:</h2>
                     <ul className="list-disc list-inside text-slate-300 space-y-1">
                         <li>🔥 Epic anime battles</li>
-                        <li>⚛️ React & Redux Toolkit</li>
                         <li>🎨 Smooth animations and UI polish</li>
                         <li>💡 Designing apps with purpose and personality</li>
                     </ul>
@@ -38,7 +37,7 @@ export default function AboutThisProject() {
                 <div className="mb-6">
                     <h2 className="text-2xl font-semibold text-yellow-400 mb-2">Why I Built This</h2>
                     <p className="text-slate-300">
-                        I wanted to create a project that brings together my love for anime and my passion for interactive front-end development. This simulator combines fun gameplay logic with real-world technologies I use professionally.
+                        I wanted to create a project that brings together my love for anime and my passion for interactive full-stack development. This simulator combines fun gameplay logic with real-world technologies I use professionally.
                     </p>
                 </div>
 
@@ -51,7 +50,7 @@ export default function AboutThisProject() {
                         Home
                     </a>
                     <a
-                        href="https://github.com/hamzahatake"
+                        href="https://portfolio-seven-gamma-62.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-yellow-400 text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-300 transition-all duration-300"
