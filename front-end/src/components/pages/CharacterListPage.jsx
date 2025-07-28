@@ -7,8 +7,24 @@ import { useDebounce } from "../../hooks/deBounce";
 
 export default function CharacterList() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedSaga, setSelectedSaga] = useState("");
+    const [selectedRole, setSelectedRole] = useState("");
+    const [selectedLevel, setSelectedLevel] = useState("");
     const debouncedSearch = useDebounce(searchQuery, 300)
     const { data: warriors, isLoading, error } = useGetCharactersQuery({ name: debouncedSearch })
+
+    const filteredWarriors = warriors?.filter(warrior => {
+        const matchesName = warrior.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSaga = selectedSaga === "" || warrior.saga.toLowerCase() === selectedSaga.toLowerCase();
+        const matchesRole = selectedRole === "" || warrior.role.toLowerCase() === selectedRole.toLowerCase();
+        const matchesLevel =
+            selectedLevel === "" ||
+            (selectedLevel === "under 25" && warrior.level <= 25) ||
+            (selectedLevel === "26 - 50" && warrior.level > 25 && warrior.level <= 50) ||
+            (selectedLevel === "50+" && warrior.level > 50);
+
+        return matchesName && matchesSaga && matchesRole && matchesLevel;
+    });
 
     return (
         <div className="min-h-screen bg-gray-900 text-white">
@@ -26,7 +42,10 @@ export default function CharacterList() {
 
             {/* Search Filters */}
             <div className="mt-[-3rem] z-30 relative">
-                <SearchFilterPanel searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <SearchFilterPanel searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                    selectedSaga={selectedSaga} setSelectedSaga={setSelectedSaga}
+                    selectedRole={selectedRole} setSelectedRole={setSelectedRole}
+                    selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />
             </div>
 
             {isLoading && <p>It's Loading</p>}
@@ -35,8 +54,8 @@ export default function CharacterList() {
             {/* Character Grid */}
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {warriors?.length >= 1 ?
-                        (warriors.slice(0, 12).map(warrior => (
+                    {filteredWarriors?.length >= 1 ?
+                        (filteredWarriors.slice(0, 12).map(warrior => (
                             <div key={warrior.id}>
                                 <FullBodyCharacterCard warrior={warrior} />
                             </div>

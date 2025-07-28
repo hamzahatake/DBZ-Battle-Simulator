@@ -9,7 +9,6 @@ import {
     HistoryFilterBar,
 } from "../battle";
 
-// Temporary mock data
 const mockBattles = [];
 
 export default function BattlePage() {
