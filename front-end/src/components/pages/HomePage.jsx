@@ -1,4 +1,3 @@
-import "keen-slider/keen-slider.min.css"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { motion, AnimatePresence } from "framer-motion"
 import HeroBanner from "../common/HeroBanner"
