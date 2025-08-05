@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
-const SavedTeamPanel = () => {
+const SavedTeamPanel = ({ warrior }) => {
+
     const onLoad = (team) => {
         console.log('Load team:', team);
     };

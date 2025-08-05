@@ -10,6 +10,7 @@ export default function CharacterList() {
     const [selectedSaga, setSelectedSaga] = useState("");
     const [selectedRole, setSelectedRole] = useState("");
     const [selectedLevel, setSelectedLevel] = useState("");
+
     const debouncedSearch = useDebounce(searchQuery, 300)
     const { data: warriors, isLoading, error } = useGetCharactersQuery({ name: debouncedSearch })
 

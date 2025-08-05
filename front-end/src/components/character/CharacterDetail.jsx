@@ -7,7 +7,7 @@ export default function CharacterDetail({ fighter }) {
 
             {/* 🔮 Shimmer Layer */}
             <div className="absolute inset-0 pointer-events-none z-0 opacity-30 group-hover:opacity-50 transition duration-500 blur-2xl"
-                 style={{ background: 'radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%)' }}>
+                style={{ background: 'radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%)' }}>
             </div>
 
             <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center z-10 relative">

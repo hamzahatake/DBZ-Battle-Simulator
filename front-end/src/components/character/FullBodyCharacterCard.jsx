@@ -1,12 +1,38 @@
+import { useState, useEffect } from "react"
 import Attack from "/images/Attack.png"
 import Defence from "/images/Defence.png"
+import { useSelectedCharacter } from "../../context/selectedCharacters"
 
 export default function FullBodyCharacterCard({ warrior }) {
+    const { selectedCharacter, setSelectedCharacter } = useSelectedCharacter();
+
     return (
         <div className="p-3">
             <div className="relative w-72 h-[500px] rounded-3xl shadow-2xl
-    bg-gradient-to-br from-gray-800 via-blue-800 to-indigo-500
-    group transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                bg-gradient-to-br from-gray-800 via-blue-800 to-indigo-500
+                group transform transition-all duration-300 hover:scale-105 cursor-pointer">
+
+                {/* + Button */}
+                <div>
+                    {selectedCharacter.some(char => char.id === warrior.id) ?
+                        "" :
+                        (<button
+                            onClick={() => {
+                                setSelectedCharacter(prev => {
+                                    if (prev.length >= 5) return prev;
+                                    const alreadyExists = prev.some(char => char.id === warrior.id);
+                                    if (alreadyExists) return prev;
+                                    return [...prev, warrior];
+                                });
+                            }}
+                            className="absolute cursor-pointer top-3 right-3 z-10 w-8 h-8 rounded-full bg-yellow-400 text-gray-900 
+                                font-bold text-lg flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110
+                                hover:bg-yellow-300 active:scale-95">
+                            +
+                        </button>
+                        )
+                    }
+                </div>
 
                 {/* Image */}
                 <div className="h-[70%] flex items-center justify-center">

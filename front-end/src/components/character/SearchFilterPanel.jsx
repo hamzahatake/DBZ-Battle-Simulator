@@ -59,7 +59,7 @@ export default function SearchFilterPanel({
 
                 {/* Search Bar */}
                 <div className="flex flex-col flex-1 min-w-[200px]">
-                    <form onSubmit={() => warriors()}>
+                    <form onSubmit={(e) => {e.preventDefault(), warriors()}}>
                         <label htmlFor="search" className="text-sm font-semibold text-yellow-400 mb-1">Search</label>
                         <input
                             type="text"
