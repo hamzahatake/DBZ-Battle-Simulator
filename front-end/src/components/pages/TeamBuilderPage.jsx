@@ -1,21 +1,16 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetCharactersQuery } from "../../features/characters/charactersSlice";
+import { loadSelectedTeamFromStorage } from "../../features/team/teamSlice";
 import TeamSlot from "../team/TeamSlot";
 import SavedTeamPanel from "../team/SavedTeamPanel";
 import StartBattleButton from "../team/StartBattleButton";
 import TeamSummary from "../team/TeamSummary";
-import { useGetCharactersQuery } from "../../features/characters/charactersSlice";
-import { useSelectedCharacter } from "../../context/selectedCharacters";
 
 export default function TeamBuilderPage() {
+    const dispatch = useDispatch();
     const { data: warriors, isLoading, error } = useGetCharactersQuery();
-    const { selectedCharacter, setSelectedCharacter } = useSelectedCharacter();
-
-    const handleRemoveFromTeam = (indexToRemove) => {
-        setSelectedCharacter(prev => {
-            const copy = [...prev];
-            copy.splice(indexToRemove, 1);
-            return copy;
-        });
-    };
+    const selectedTeam = useSelector((state) => state.teams.selectedTeam);
 
     return (
         <div className="w-full min-h-screen bg-gray-900 text-white pt-20 px-4">
@@ -23,26 +18,25 @@ export default function TeamBuilderPage() {
                 Build Your Team
             </h1>
 
-            {/* Main Layout: Team Slots + Saved Panel */}
             <div className="flex flex-col lg:flex-row gap-8 justify-center items-start w-full">
-                {/* Left: Team Slots (Grid 3x2) */}
+                {/* Team Slots */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full lg:w-2/3">
                     {Array.from({ length: 5 }).map((_, idx) => (
                         <TeamSlot
                             key={idx}
-                            character={selectedCharacter[idx]}
-                            onRemove={handleRemoveFromTeam}
+                            character={selectedTeam[idx] || null}
                         />
-                    ))}
+                    ))
+                    }
                 </div>
 
-                {/* Right: Saved Team Panel */}
+                {/* Saved Teams */}
                 <div className="w-full lg:w-1/3">
                     <SavedTeamPanel warrior={warriors} />
                 </div>
             </div>
 
-            {/* Summary + Start Battle */}
+            {/* Summary + Start */}
             <div className="mt-10 max-w-5xl mx-auto px-4">
                 <TeamSummary />
                 <div className="flex justify-center mt-6">

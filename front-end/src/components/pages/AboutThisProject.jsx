@@ -15,7 +15,7 @@ export default function AboutThisProject() {
 
                 {/* Developer Section */}
                 <div className="mb-6">
-                    <h2 className="text-2xl font-semibold text-yellow-400 mb-2">Built With ❤️ by a Developer Who Loves:</h2>
+                    <h2 className="text-2xl font-semibold text-yellow-400 mb-2">Built by a Developer Who Loves:</h2>
                     <ul className="list-disc list-inside text-slate-300 space-y-1">
                         <li>🔥 Epic anime battles</li>
                         <li>🎨 Smooth animations and UI polish</li>

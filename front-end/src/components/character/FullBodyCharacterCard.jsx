@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import Attack from "/images/Attack.png"
 import Defence from "/images/Defence.png"
-import { useSelectedCharacter } from "../../context/selectedCharacters"
+import { useSelector, useDispatch } from "react-redux"
+import { addCharacterToTeam } from "../../features/team/teamSlice"
 
 export default function FullBodyCharacterCard({ warrior }) {
-    const { selectedCharacter, setSelectedCharacter } = useSelectedCharacter();
+    const dispatch = useDispatch();
+    const selectedTeam = useSelector(state => state.teams.selectedTeam);
 
     return (
         <div className="p-3">
@@ -14,17 +16,10 @@ export default function FullBodyCharacterCard({ warrior }) {
 
                 {/* + Button */}
                 <div>
-                    {selectedCharacter.some(char => char.id === warrior.id) ?
+                    {selectedTeam.some(char => char.id === warrior.id) ?
                         "" :
                         (<button
-                            onClick={() => {
-                                setSelectedCharacter(prev => {
-                                    if (prev.length >= 5) return prev;
-                                    const alreadyExists = prev.some(char => char.id === warrior.id);
-                                    if (alreadyExists) return prev;
-                                    return [...prev, warrior];
-                                });
-                            }}
+                            onClick={() => dispatch(addCharacterToTeam(warrior))}
                             className="absolute cursor-pointer top-3 right-3 z-10 w-8 h-8 rounded-full bg-yellow-400 text-gray-900 
                                 font-bold text-lg flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110
                                 hover:bg-yellow-300 active:scale-95">

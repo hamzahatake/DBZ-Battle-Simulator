@@ -12,7 +12,7 @@ export const teamSlice = createSlice({
             if (!exist && state.selectedTeam.length < 5) {
                 state.selectedTeam = [...state.selectedTeam, action.payload];
             }
-        }, 
+        },
         removeCharacterFromTeam: (state, action) => {
             state.selectedTeam = state.selectedTeam.filter(character => character.id !== action.payload.id);
         },
@@ -38,6 +38,9 @@ export const teamSlice = createSlice({
                 state.savedTeams[index] = action.payload;
             }
         },
+        loadSelectedTeamFromStorage: (state, action) => {
+            state.selectedTeam = action.payload || [];
+        },
         loadSavedTeamsFromStorage: (state, action) => {
             state.savedTeams = action.payload || [];
         }
@@ -51,7 +54,8 @@ export const {
     saveTeam,
     deleteTeam,
     updateTeam,
-    loadSavedTeamsFromStorage
+    loadSavedTeamsFromStorage,
+    loadSelectedTeamFromStorage
 } = teamSlice.actions;
 
 export default teamSlice.reducer;

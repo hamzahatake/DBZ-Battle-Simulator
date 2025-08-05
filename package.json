@@ -2,6 +2,7 @@
   "dependencies": {
     "framer-motion": "^12.23.9",
     "keen-slider": "^6.8.6",
+    "redux-persist": "^6.0.0",
     "tailwind-scrollbar-hide": "^4.0.0"
   }
 }
