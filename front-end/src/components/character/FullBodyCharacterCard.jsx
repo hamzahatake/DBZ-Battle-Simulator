@@ -24,9 +24,7 @@ export default function FullBodyCharacterCard({ warrior }) {
                                 font-bold text-lg flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110
                                 hover:bg-yellow-300 active:scale-95">
                             +
-                        </button>
-                        )
-                    }
+                        </button>)}
                 </div>
 
                 {/* Image */}
@@ -34,8 +32,7 @@ export default function FullBodyCharacterCard({ warrior }) {
                     <img
                         src={warrior.image_full_body}
                         alt={warrior.name}
-                        className="h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                    />
+                        className="h-full object-contain transition-transform duration-500 group-hover:scale-110" />
                 </div>
 
                 {/* Content */}
@@ -66,5 +63,5 @@ export default function FullBodyCharacterCard({ warrior }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
