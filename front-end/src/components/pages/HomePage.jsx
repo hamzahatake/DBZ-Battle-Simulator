@@ -5,15 +5,15 @@ import MarqueeSeparator from "../common/MarqueeSeparator"
 import ProfileCharacterCard from "../character/ProfileCharacterCard"
 import CharacterDetail from "../character/CharacterDetail"
 import { useGetCharactersQuery } from "../../features/characters/charactersSlice"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 
 export default function HomePage() {
-    const { data: warriors, isLoading, error } = useGetCharactersQuery();
+    const { data: warriors = [], isLoading, error } = useGetCharactersQuery();
     const [selectedCharacter, setSelectedCharacter] = useState();
 
     useEffect(() => {
         if (warriors?.length > 0 && !selectedCharacter) {
-            setSelectedCharacter(warriors[3]);
+            setSelectedCharacter(warriors[0]);
         }
     }, [warriors, selectedCharacter]);
 
@@ -51,13 +51,13 @@ export default function HomePage() {
                         <div
                             id="carousel"
                             className="flex gap-8 overflow-x-auto scroll-smooth px-8 py-8 snap-x snap-mandatory hide-scrollbar">
-                            {warriors?.length >= 1 ? (
+                            {warriors?.length ? (
                                 warriors.map(warrior => (
                                     <div
                                         key={warrior.id}
                                         className={`snap-start rounded-4xl transition duration-300 transform 
                                             ${warrior.id === selectedCharacter?.id
-                                                ? 'scale-110 -translate-y-4'
+                                                ? 'scale-110 -translate-y-4 opacity-100'
                                                 : 'hover:shadow-md opacity-50'}`
                                         }>
                                         <ProfileCharacterCard

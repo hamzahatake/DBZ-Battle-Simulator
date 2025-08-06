@@ -15,8 +15,8 @@ export const charactersApi = createApi({
                 const queryString = param.toString();
                 return (queryString.length >= 1) ? `/characters/?${queryString}` : `/characters/`
             },
-            transformResponse: (response) =>
-                response.map((chr) => ({
+            transformResponse: (response) => {
+                const mapped = response.map((chr) => ({
                     id: chr?.id ?? 0,
                     name: chr?.name ?? "",
                     form: chr?.form ?? "",
@@ -36,6 +36,11 @@ export const charactersApi = createApi({
                     image_full_body: chr?.image_full_body ?? "",
                     image_profile: chr?.image_profile ?? ""
                 }))
+
+                return mapped.sort((a, b) =>
+                    b.level - a.level
+                )
+            }
         })
     })
 })
