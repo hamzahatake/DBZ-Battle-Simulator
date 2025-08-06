@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeCharacterFromTeam } from '../../features/team/teamSlice';
 
 const TeamSlot = ({ character }) => {
@@ -12,7 +12,7 @@ const TeamSlot = ({ character }) => {
       transition-all duration-300 ease-in-out 
       flex items-center justify-center group
       ${character
-                    ? 'border-transparent bg-gradient-to-br from-[#1f1f1f] to-[#2a2a2a] shadow-lg hover:shadow-2xl'
+                    ? 'border-transparent bg-gradient-to-br from-gray-800 via-blue-800 to-indigo-500 shadow-lg hover:shadow-2xl'
                     : 'border-dashed border-gray-600 hover:border-white bg-[#0c0c0c]'}
     `}
             whileHover={character ? { scale: 1.03 } : {}}
@@ -29,16 +29,17 @@ const TeamSlot = ({ character }) => {
             {character && (
                 <>
                     {/* Image */}
-                    <img
-                        src={character.image_full_body || "/placeholder.png"}
-                        alt={character.name}
-                        className="h-full w-auto object-contain transition-transform duration-200 group-hover:scale-105"
-                    />
+                    <div className="h-[70%] flex items-center justify-center">
+                        <img
+                            src={character.image_full_body}
+                            alt={character.name}
+                            className="h-full object-contain" />
+                    </div>
                     {/* Info Glass Panel */}
-                    <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-black/40 px-4 py-3 text-white rounded-b-3xl">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-900 px-4 py-3 text-white rounded-b-3xl">
                         <div className="text-lg font-bold leading-snug text-white truncate">
                             {character.name}
-                            <span className="text-sm text-gray-300 tracking-wide italic truncate">
+                            <span className="text-xs text-gray-300 ml-1 tracking-wide italic truncate">
                                 {character.form}
                             </span>
                         </div>
@@ -62,12 +63,10 @@ const TeamSlot = ({ character }) => {
                     {/* Remove Hint */}
                     <button
                         onClick={(e) => {
-                            e.stopPropagation();
                             dispatch(removeCharacterFromTeam(character));
                         }}
-                        className="absolute top-2 right-2 text-xs text-red-500 bg-red-500/10 px-2 py-1 
-            rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
-                    >
+                        className="absolute top-2 right-2 text-xs text-red-300 bg-red-900 px-2 py-1 
+                        rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-400 cursor-pointer">
                         Remove
                     </button>
                 </>

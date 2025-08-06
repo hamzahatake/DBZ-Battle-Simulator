@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import Attack from "/images/Attack.png"
 import Defence from "/images/Defence.png"
 import { useSelector, useDispatch } from "react-redux"
@@ -17,12 +16,17 @@ export default function FullBodyCharacterCard({ warrior }) {
                 {/* + Button */}
                 <div>
                     {selectedTeam.some(char => char.id === warrior.id) ?
-                        "" :
+                        (<button
+                            onClick={() => dispatch(addCharacterToTeam(warrior))}
+                            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-yellow-400 text-gray-900 
+                                font-bold text-lg flex items-center justify-center transition-opacity opacity-0 duration-500 ease-in-out">
+                            +
+                        </button>) :
                         (<button
                             onClick={() => dispatch(addCharacterToTeam(warrior))}
                             className="absolute cursor-pointer top-3 right-3 z-10 w-8 h-8 rounded-full bg-yellow-400 text-gray-900 
                                 font-bold text-lg flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110
-                                hover:bg-yellow-300 active:scale-95">
+                                hover:bg-yellow-400 active:scale-95">
                             +
                         </button>)}
                 </div>
