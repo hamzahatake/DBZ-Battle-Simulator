@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCharactersQuery } from "../../features/characters/charactersSlice";
-import { loadSelectedTeamFromStorage } from "../../features/team/teamSlice";
 import TeamSlot from "../team/TeamSlot";
-import SavedTeamPanel from "../team/SavedTeamPanel";
 import StartBattleButton from "../team/StartBattleButton";
 import TeamSummary from "../team/TeamSummary";
 
@@ -28,11 +26,6 @@ export default function TeamBuilderPage() {
                         />
                     ))
                     }
-                </div>
-
-                {/* Saved Teams */}
-                <div className="w-full lg:w-1/3">
-                    <SavedTeamPanel warrior={warriors} />
                 </div>
             </div>
 

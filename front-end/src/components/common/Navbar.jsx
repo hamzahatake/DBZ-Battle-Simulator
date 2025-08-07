@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import Goku from "../../../public/images/profile/Goku Ultra Instinct.jpg"
 
 const navItems = [
     { path: "/", label: "Home" },
@@ -15,6 +16,13 @@ export default function Navbar() {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const containerRef = useRef(null);
     const itemRefs = useRef({});
+
+    // TEMP: Replace this with your actual user auth logic later
+    const user = {
+        isLoggedIn: true,
+        avatar: "https://via.placeholder.com/40", // Placeholder user image
+    };
+
 
     useEffect(() => {
         const updateIndicator = () => {
@@ -75,12 +83,22 @@ export default function Navbar() {
 
                 {/* Auth */}
                 <div className="flex gap-3">
-                    <NavLink
-                        to="/auth"
-                        className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-3xl hover:bg-blue-100 transition"
-                    >
-                        Log In
-                    </NavLink>
+                    {!user.isLoggedIn ? (
+                        <NavLink
+                            to="/auth"
+                            className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-3xl hover:bg-blue-100 transition"
+                        >
+                            Log In
+                        </NavLink>
+                    ) : (
+                        <NavLink to="/user">
+                            <img
+                                src={Goku}
+                                alt="User"
+                                className="w-10 h-10 rounded-full border-2 border-yellow-500 hover:scale-105 transition-transform"
+                            />
+                        </NavLink>
+                    )}
                 </div>
             </div>
         </nav>
