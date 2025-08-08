@@ -1,6 +1,17 @@
 import Goku from "../../../public/images/profile/Goku Ultra Instinct.jpg"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../auth/authSlice";
 
 export default function UserProfile() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(logout())
+        navigate("/")
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-900 to-black text-white p-6 pt-20">
             {/* Profile Header */}
@@ -18,7 +29,9 @@ export default function UserProfile() {
                 </div>
 
                 {/* Logout Button */}
-                <div className="flex justify-end mb-4">
+                <div
+                    onClick={handleLogout}
+                    className="flex justify-end mb-4">
                     <button
                         className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 rounded-lg shadow-md"
                     >

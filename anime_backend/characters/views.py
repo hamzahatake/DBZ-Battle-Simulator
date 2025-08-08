@@ -1,11 +1,10 @@
 from .models import Character
-from .serializers import CharacterSerializers
+from .serializers import CharacterSerializers, RegistrationSerializers, ProfileViewSerializers
 from rest_framework import viewsets, filters
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegistrationSerializers
 
 class CharacterViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
@@ -15,6 +14,13 @@ class CharacterViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['name', 'attack_level', 'defense_level', 'speed_level']
     ordering = ['name']
+
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        serializer = ProfileViewSerializers(request.user)
+        return Response(serializer.data)
+
 
 class RegisterView(APIView):
     def post(self, request):

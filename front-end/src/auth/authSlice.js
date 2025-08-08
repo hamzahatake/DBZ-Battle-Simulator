@@ -5,7 +5,6 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
     try {
         const res = await api.post('token/', credentials)
 
-        // Save tokens locally (Goku receives Capsule Badge + Senzu Bean)
         localStorage.setItem('access', res.data.access)
         localStorage.setItem('refresh', res.data.refresh)
 
@@ -24,6 +23,16 @@ export const register = createAsyncThunk('auth/register', async (userData, thunk
     }
 })
 
+export const refreshAccessToken = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+    const refresh = localStorage.getItem('refresh')
+    try {
+        const res = await api.post('token/refresh/', { refresh })
+        localStorage.setItem('access', res.data.access)
+        return res.data
+    } catch (err) {
+        return thunkAPI.rejectWithValue(err.response?.data || 'Token refresh failed')
+    }
+})
 
 const initialState = {
     access: localStorage.getItem('access') || null,
@@ -67,14 +76,27 @@ const authSlice = createSlice({
                 state.loading = true
                 state.error = null
             })
-            .addCase(register.fulfilled, (state, action) => {
+            .addCase(register.fulfilled, (state) => {
                 state.loading = false
             })
             .addCase(register.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.payload
             })
-
+            .addCase(refreshAccessToken.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(refreshAccessToken.fulfilled, (state, action) => {
+                state.loading = false
+                state.access = action.payload.access
+                state.isAuthenticated = true
+            })
+            .addCase(refreshAccessToken.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+                state.isAuthenticated = false
+            })
     }
 })
 

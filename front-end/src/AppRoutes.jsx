@@ -23,24 +23,19 @@ export default function AppRoutes() {
         <Route path="/characters" element={<CharacterList />} />
         <Route path="/about" element={<AboutThisProject />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/user" element={<UserProfile />} />
 
         {/* Protected routes — only logged-in warriors allowed */}
         <Route path="/team" element={
-            isAuthenticated ? (
-              <TeamBuilderPage />
-            ) : (
-              <Navigate to="/auth" replace />
-            )
-          } />
+          isAuthenticated ? (<TeamBuilderPage />)
+            : (<Navigate to="/auth" replace />)} />
+
         <Route path="/battle" element={
-            isAuthenticated ? (
-              <BattlePage />
-            ) : (
-              <Navigate to="/auth" replace />
-            )
-          }
-        />
+          isAuthenticated ? (<BattlePage />)
+            : (<Navigate to="/auth" replace />)} />
+
+        <Route path="/user" element={
+          isAuthenticated ? (<UserProfile />)
+            : (<Navigate to="/" replace />)} />
 
         {/* Catch-all redirect */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { login } from "../../auth/authSlice"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
     const dispatch = useDispatch()
 
@@ -16,6 +20,12 @@ export default function Login() {
             .catch((err) => console.error('Login Failed:', err))
 
     }
+
+    useEffect(() => {
+        if (isAuthenticated){
+            navigate("/user");
+        }
+    }, [isAuthenticated, navigate])
 
     return (
         <form onSubmit={handleLogin} className="space-y-4">

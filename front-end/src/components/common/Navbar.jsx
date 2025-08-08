@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Goku from "../../../public/images/profile/Goku Ultra Instinct.jpg"
+import { useSelector } from "react-redux";
 
 const navItems = [
     { path: "/", label: "Home" },
@@ -16,11 +17,12 @@ export default function Navbar() {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const containerRef = useRef(null);
     const itemRefs = useRef({});
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-    // TEMP: Replace this with your actual user auth logic later
+
     const user = {
-        isLoggedIn: true,
-        avatar: "https://via.placeholder.com/40", // Placeholder user image
+        isLoggedIn: isAuthenticated,
+        avatar: "https://via.placeholder.com/40",
     };
 
 
