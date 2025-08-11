@@ -17,7 +17,7 @@ export default function AuthPage() {
                 </Link>
             </div>
 
-            {/* Artwork Panel (slides left/right based on form state) */}
+            {/* Artwork Panel */}
             <motion.div
                 key={`artwork-${showRegister ? "right" : "left"}`}
                 initial={{ x: showRegister ? 0 : 0 }}
@@ -31,11 +31,12 @@ export default function AuthPage() {
                     className="w-full h-full object-cover object-top"
                 />
 
-                {/* Register Button (only shown in login view) */}
+                {/* Register Button */}
                 {!showRegister && (
                     <button
                         onClick={() => setShowRegister(true)}
-                        className="absolute bottom-6 right-6 bg-yellow-400 text-black font-bold py-2 px-4 rounded-xl shadow-lg hover:bg-yellow-300 transition"
+                        className="absolute bottom-6 right-6 bg-yellow-400 text-black font-bold py-2 px-4 rounded-xl 
+                            shadow-lg hover:bg-yellow-300 transition cursor-pointer"
                     >
                         Register →
                     </button>
@@ -51,8 +52,7 @@ export default function AuthPage() {
                         animate={{ x: "0%" }}
                         exit={{ x: "100%" }}
                         transition={{ duration: 0.6, ease: "easeInOut" }}
-                        className="absolute top-0 right-0 md:w-1/2 w-full h-full z-20 flex items-center justify-center p-8 md:p-12 lg:p-16 bg-gray-900"
-                    >
+                        className="absolute top-0 right-0 md:w-1/2 w-full h-full z-20 flex items-center justify-center p-8 md:p-12 lg:p-16 bg-gray-900">
                         <Login />
                     </motion.div>
                 )}
@@ -75,7 +75,8 @@ export default function AuthPage() {
                             {/* Back to Login */}
                             <button
                                 onClick={() => setShowRegister(false)}
-                                className="absolute bottom-6 right-6 bg-yellow-400 text-black font-bold py-2 px-4 rounded-xl shadow-lg hover:bg-yellow-300 transition"
+                                className="absolute bottom-6 right-6 bg-yellow-400 text-black font-bold py-2 px-4 rounded-xl
+                                    shadow-lg hover:bg-yellow-300 transition cursor-pointer"
                             >
                                 ← Back to Login
                             </button>

@@ -34,7 +34,7 @@ export default function AppRoutes() {
             : (<Navigate to="/auth" replace />)} />
 
         <Route path="/user" element={
-          isAuthenticated ? (<UserProfile />)
+          isAuthenticated ? (<HomePage />)
             : (<Navigate to="/" replace />)} />
 
         {/* Catch-all redirect */}

@@ -56,7 +56,7 @@ export default function CharacterList() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredWarriors?.length >= 1 ?
-                        (filteredWarriors.slice(0, 12).map(warrior => (
+                        (filteredWarriors.map(warrior => (
                             <div key={warrior.id}>
                                 <FullBodyCharacterCard warrior={warrior} />
                             </div>

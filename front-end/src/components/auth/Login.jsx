@@ -18,7 +18,6 @@ export default function Login() {
             .unwrap()
             .then((res) => console.log('Login Success:', res))
             .catch((err) => console.error('Login Failed:', err))
-
     }
 
     useEffect(() => {
@@ -61,10 +60,10 @@ export default function Login() {
                 </a>
             </div>
 
-            {/* Button triggers dispatch of login action */}
+            {/* Sign in */}
             <button
                 type="submit"
-                className="w-full bg-yellow-400 text-black font-semibold py-2 rounded-lg hover:bg-yellow-300 transition"
+                className="w-full bg-yellow-400 text-black font-semibold py-2 rounded-lg hover:bg-yellow-300 transition cursor-pointer"
             >
                 Sign In
             </button>

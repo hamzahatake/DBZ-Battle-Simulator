@@ -1,8 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Goku from "../../../public/images/profile/Goku Ultra Instinct.jpg"
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../auth/authSlice";
+const Goku = "/images/profile/Goku Ultra Instinct.jpg";
 
 const navItems = [
     { path: "/", label: "Home" },
@@ -13,6 +16,8 @@ const navItems = [
 ];
 
 export default function Navbar() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const location = useLocation();
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const containerRef = useRef(null);
@@ -46,6 +51,13 @@ export default function Navbar() {
         window.addEventListener("resize", updateIndicator);
         return () => window.removeEventListener("resize", updateIndicator);
     }, [location.pathname]);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/");
+    };
+
+
 
     return (
         <nav className="absolute top-0 left-0 w-full z-50 px-6 py-4 text-white">
@@ -84,7 +96,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Auth */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center">
                     {!user.isLoggedIn ? (
                         <NavLink
                             to="/auth"
@@ -93,13 +105,31 @@ export default function Navbar() {
                             Log In
                         </NavLink>
                     ) : (
-                        <NavLink to="/user">
-                            <img
-                                src={Goku}
-                                alt="User"
-                                className="w-10 h-10 rounded-full border-2 border-yellow-500 hover:scale-105 transition-transform"
-                            />
-                        </NavLink>
+                        <div className="relative group">
+                            <NavLink to="/user" className="block">
+                                <img
+                                    src={Goku}
+                                    alt="User"
+                                    className="w-10 h-10 rounded-full border-2 border-yellow-500 hover:scale-105 transition-transform"
+                                />
+                            </NavLink>
+                            {/* Hover Dropdown */}
+                            <div className="absolute right-0 top-full w-44 bg-white text-gray-800 rounded-md shadow-lg ring-1 ring-black/5 py-2 opacity-0 scale-95 transform origin-top-right transition duration-150 ease-out group-hover:opacity-100 group-hover:scale-100">
+                                <NavLink
+                                    to="/user"
+                                    className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                    Profile
+                                </NavLink>
+                                <NavLink
+                                    to="/auth"
+                                    onClick={handleLogout}
+                                    className="block px-4 py-2 hover:bg-gray-100 text-red-600"
+                                >
+                                    Logout
+                                </NavLink>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>

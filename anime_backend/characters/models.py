@@ -20,4 +20,4 @@ class Character(models.Model):
     image_profile = models.ImageField(upload_to='characters/profile', blank=False, null=True)
 
     def __str__(self):
-        return f"{self.name} - {self.saga} ({self.role}) "
+        return f"{self.name} - {self.saga} ({self.role})"

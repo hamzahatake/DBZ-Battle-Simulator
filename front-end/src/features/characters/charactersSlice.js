@@ -22,7 +22,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
             return result;
         }
 
-        // Try to get a new access token
         const refreshResult = await baseQuery({
             url: 'token/refresh/',
             method: 'POST',

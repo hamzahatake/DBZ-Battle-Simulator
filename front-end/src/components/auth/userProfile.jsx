@@ -1,48 +1,123 @@
-import Goku from "../../../public/images/profile/Goku Ultra Instinct.jpg"
+const Goku = "/images/profile/Goku Ultra Instinct.jpg";
 import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../auth/authSlice";
+import {
+    useGetUserProfileQuery,
+    useUpdateUserProfileMutation
+} from "../../auth/userProfileSlice";
 
 export default function UserProfile() {
+    const { data: user, isLoading, error } = useGetUserProfileQuery();
+    const [updateProfile, { isLoading: isSaving }] = useUpdateUserProfileMutation();
+
+    const [editData, setEditData] = useState({
+        username: "",
+        name: "",
+        bio: "",
+        image: ""
+    });
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Populate edit fields when user data is loaded
+    useEffect(() => {
+        if (user) {
+            setEditData({
+                username: user.username || "",
+                name: user.name || "",
+                bio: user.bio || "",
+                image: user.image || ""
+            });
+        }
+    }, [user]);
+
+    if (isLoading) return <p className="text-center text-gray-300">Loading profile...</p>;
+    if (error) return <p className="text-center text-red-500">Error loading profile.</p>;
+
     const handleLogout = () => {
-        dispatch(logout())
-        navigate("/")
-    }
+        dispatch(logout());
+        navigate("/");
+    };
+
+    const handleEdit = (field, value) => {
+        setEditData(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    const handleSave = async () => {
+        try {
+            await updateProfile(editData).unwrap(); // Sends PUT with current editData
+            alert("Profile updated successfully!");
+        } catch (err) {
+            alert("Error updating profile.");
+        }
+    };
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-900 to-black text-white p-6 pt-20">
             {/* Profile Header */}
-            <div className="flex items-center gap-6 mb-10">
-                <img
-                    src={Goku}
-                    alt="User Avatar"
-                    className="w-24 h-24 rounded-full border-4 border-purple-500 shadow-lg"
-                />
-                <div>
-                    <h1 className="text-3xl font-bold">Goku</h1>
-                    <button className="mt-2 px-4 py-1 text-sm bg-purple-600 hover:bg-purple-700 rounded-lg">
-                        Edit Profile
-                    </button>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10 bg-purple-800/40 p-6 rounded-2xl shadow-xl">
+                <div className="flex items-center gap-6">
+                    <img
+                        src={editData.image || Goku}
+                        alt={editData.name || "Profile"}
+                        className="w-28 h-28 rounded-full border-4 border-purple-500 shadow-lg object-cover"
+                    />
+                    <div>
+                        <input
+                            type="text"
+                            value={editData.name}
+                            onChange={(e) => handleEdit("name", e.target.value)}
+                            className="bg-transparent border-b border-purple-400 text-3xl font-bold focus:outline-none focus:border-purple-300"
+                            placeholder="Enter name"
+                        />
+                        <p className="text-sm text-gray-300 mt-1">@{editData.username}</p>
+                    </div>
                 </div>
 
                 {/* Logout Button */}
-                <div
+                <button
                     onClick={handleLogout}
-                    className="flex justify-end mb-4">
-                    <button
-                        className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 rounded-lg shadow-md"
-                    >
-                        Log Out
-                    </button>
-                </div>
+                    className="px-5 py-2 text-sm bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition"
+                >
+                    Log Out
+                </button>
+            </div>
 
+            {/* Bio Section */}
+            <div className="bg-purple-800/40 p-6 rounded-2xl shadow-lg">
+                <h2 className="text-lg font-semibold mb-2">Bio</h2>
+                <textarea
+                    value={editData.bio}
+                    onChange={(e) => handleEdit("bio", e.target.value)}
+                    className="w-full bg-transparent border border-purple-400 rounded-lg p-3 focus:outline-none focus:border-purple-300 resize-none"
+                    rows="4"
+                    placeholder="Write something about yourself..."
+                />
+            </div>
+
+            {/* Save Changes Button */}
+            <div className="mt-6 text-center">
+                <button
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className={`px-6 py-2 rounded-lg shadow-md transition ${isSaving
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                        }`}
+                >
+                    {isSaving ? "Saving..." : "Save Changes"}
+                </button>
             </div>
 
             {/* User Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 mt-10">
                 <div className="bg-white/10 backdrop-blur p-4 rounded-xl shadow-md">
                     <h2 className="text-lg font-semibold">Teams</h2>
                     <p className="text-2xl">5</p>
@@ -55,48 +130,6 @@ export default function UserProfile() {
                     <h2 className="text-lg font-semibold">Favorite Character</h2>
                     <p className="text-xl italic">Vegeta</p>
                 </div>
-            </div>
-
-            {/* Saved Teams */}
-            <div className="mb-10">
-                <h2 className="text-2xl font-bold mb-4">Saved Teams</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[1, 2, 3].map(team => (
-                        <div key={team} className="bg-white/10 backdrop-blur p-4 rounded-xl shadow-md">
-                            <h3 className="text-lg font-semibold mb-2">Team {team}</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {/* Character avatars (placeholder) */}
-                                {[1, 2, 3, 4, 5].map(char => (
-                                    <img
-                                        key={char}
-                                        src="https://via.placeholder.com/50"
-                                        alt="Character"
-                                        className="w-12 h-12 rounded-lg"
-                                    />
-                                ))}
-                            </div>
-                            <div className="flex gap-2 mt-4">
-                                <button className="px-3 py-1 text-sm bg-purple-600 rounded hover:bg-purple-700">View</button>
-                                <button className="px-3 py-1 text-sm bg-red-600 rounded hover:bg-red-700">Delete</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Battle History */}
-            <div>
-                <h2 className="text-2xl font-bold mb-4">Battle History</h2>
-                <ul className="space-y-4">
-                    {[1, 2, 3].map(battle => (
-                        <li key={battle} className="bg-white/10 backdrop-blur p-4 rounded-xl shadow-md">
-                            <p className="text-lg">
-                                <span className="font-semibold">Battle {battle}:</span> Team A defeated Team B in 5 rounds.
-                            </p>
-                            <p className="text-sm text-gray-300">Date: 2025-08-06</p>
-                        </li>
-                    ))}
-                </ul>
             </div>
         </div>
     );
