@@ -5,7 +5,7 @@ import CharacterList from "./components/pages/CharacterListPage"
 import TeamBuilderPage from "./components/pages/TeamBuilderPage"
 import BattlePage from "./components/pages/BattlePage"
 import AboutThisProject from "./components/pages/AboutThisProject"
-import UserProfile from "./components/auth/userProfile"
+import UserProfile from "./components/auth/UserProfile"
 import AuthPage from "./components/pages/AuthPage"
 import { useSelector } from "react-redux"
 
