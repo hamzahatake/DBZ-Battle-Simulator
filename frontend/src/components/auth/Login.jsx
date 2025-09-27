@@ -1,0 +1,75 @@
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { loginUser } from "../../features/auth/authSlice"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+
+export default function Login() {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+
+    const dispatch = useDispatch()
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        dispatch(loginUser({ username, password }))
+            .unwrap()
+            .then((res) => {
+                console.log('Login Success:', res)
+                navigate("/")
+            })
+            .catch((err) => console.error('Login Failed:', err))
+    }
+
+    useEffect(() => {
+        if (isAuthenticated){
+            navigate("/user");
+        }
+    }, [isAuthenticated, navigate])
+
+    return (
+        <form onSubmit={handleLogin} className="space-y-4">
+            <h2 className="text-2xl font-bold text-yellow-400 text-center mb-4">
+                Welcome Back!
+            </h2>
+
+            {/* Tracking Username/Email */}
+            <input
+                type="text"
+                placeholder="Email or Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+
+            {/* Tracking password */}
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+
+            <div className="flex justify-between items-center text-sm text-slate-400">
+                <label>
+                    <input type="checkbox" className="mr-2" />
+                    Remember Me
+                </label>
+                <a href="#" className="hover:underline">
+                    Forgot Password?
+                </a>
+            </div>
+
+            {/* Sign in */}
+            <button
+                type="submit"
+                className="w-full bg-yellow-400 text-black font-semibold py-2 rounded-lg hover:bg-yellow-300 transition cursor-pointer"
+            >
+                Sign In
+            </button>
+        </form>
+    )
+}

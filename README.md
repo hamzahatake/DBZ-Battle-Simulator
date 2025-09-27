@@ -1,15 +1,44 @@
-# 🐉 Anime Character Battle Simulator
+# 🐉 DBZ Battle Simulator
 
-A React + Redux-based anime-themed battle simulator where users build DBZ teams and simulate turn-based battles based on character stats. Built for learning advanced frontend patterns like normalized state, RTK Query, and battle logic.
+A full-stack Dragon Ball Z battle simulator with React frontend and Django REST API backend. Users can build teams, simulate turn-based battles, and track battle history.
 
----
+## 🏗️ Project Structure
 
-## 🗂️ Project Structure & Folder Purpose
+```
+DBZ-Battle-Simulator/
+├── frontend/          # React + Redux frontend
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+├── backend/           # Django REST API backend
+│   ├── dbz_battle_simulator/
+│   ├── characters/   # Character management app
+│   ├── battles/      # Battle simulation app
+│   ├── users/        # User management app
+│   └── requirements.txt
+├── references/        # Design references and assets
+└── README.md
+```
 
+## 🚀 Quick Start
 
----
+### Frontend (React)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## 🧠 Folder-by-Folder Explanation
+### Backend (Django)
+```bash
+cd backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+## 🧠 Frontend Architecture
 
 ### `/components/`
 UI-only components. No logic or state here.
@@ -40,11 +69,17 @@ Global app setup and providers.
 - `store.ts`: Redux store config with all slices and middleware
 - `routes.tsx`: React Router config for navigating pages
 
-### `/assets/`
-Stores images, audio, or visual files used by components.
+## 🔧 Backend Architecture
 
-### `/styles/`
-Tailwind CSS config and global styles.
+### Django Apps
+- **characters/**: Character management with stats and properties
+- **battles/**: Battle simulation with turn-by-turn logging
+- **users/**: User authentication and profiles
+
+### API Endpoints
+- `GET /api/characters/` - List all characters
+- `POST /api/battles/` - Create and simulate battles
+- `GET /api/battles/{id}/` - Get battle details and history
 
 ---
 
