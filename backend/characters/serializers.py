@@ -20,5 +20,6 @@ class CharacterListSerializer(serializers.ModelSerializer):
             'id', 'name', 'form', 'description', 'saga', 'role', 'race',
             'card_level', 'attack', 'defense', 'speed', 'energy',
             'special_move', 'ultimate_move', 'strengths', 'weaknesses',
-            'profile_image_url', 'full_body_image_url', 'is_available'
+            'profile_image_url', 'full_body_image_url', 'is_available',
+            'primary_color', 'secondary_color', 'gradient_direction'
         ]

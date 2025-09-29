@@ -4,7 +4,7 @@ from django.core.validators import FileExtensionValidator
 
 class Character(models.Model):
     # Basic Information
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     form = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     saga = models.CharField(max_length=100, blank=True)
@@ -37,6 +37,11 @@ class Character(models.Model):
         null=True,
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp', 'avif'])]
     )
+    
+    # Theme Colors
+    primary_color = models.CharField(max_length=7, blank=True, help_text="Primary theme color (hex code, e.g., #3B82F6)")
+    secondary_color = models.CharField(max_length=7, blank=True, help_text="Secondary theme color (hex code, e.g., #1E40AF)")
+    gradient_direction = models.CharField(max_length=10, default='br', help_text="Gradient direction (to, br, bl, etc.)")
     
     # Status
     is_available = models.BooleanField(default=True)

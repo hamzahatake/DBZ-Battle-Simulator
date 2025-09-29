@@ -3,10 +3,10 @@ from .models import Character
 
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ['name', 'form', 'race', 'card_level', 'attack', 'defense', 'speed', 'energy', 'is_available']
+    list_display = ['name', 'form', 'race', 'card_level', 'attack', 'defense', 'speed', 'energy', 'primary_color', 'is_available']
     list_filter = ['race', 'role', 'saga', 'is_available']
     search_fields = ['name', 'form', 'description', 'special_move', 'ultimate_move']
-    list_editable = ['card_level', 'attack', 'defense', 'speed', 'energy', 'is_available']
+    list_editable = ['card_level', 'attack', 'defense', 'speed', 'energy', 'primary_color', 'is_available']
     ordering = ['name']
     
     fieldsets = (
@@ -22,6 +22,10 @@ class CharacterAdmin(admin.ModelAdmin):
         ('Images', {
             'fields': ('profile_image', 'full_body_image'),
             'description': 'Upload character images. Profile images are used for character selection, full body images for detailed views.'
+        }),
+        ('Theme Colors', {
+            'fields': ('primary_color', 'secondary_color', 'gradient_direction'),
+            'description': 'Set custom theme colors for this character. Use hex codes (e.g., #3B82F6). Leave empty to use default blue theme.'
         }),
         ('Status', {
             'fields': ('is_available',)
